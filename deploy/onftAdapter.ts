@@ -1,8 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 
-const EXISTING_TOKEN = "0x935823a204874da68023f073d61bcd759ff267af";
-
+const EXISTING_TOKEN = null;
 
 const func: DeployFunction = async function(hre: HardhatRuntimeEnvironment) {
   const { deployments, getNamedAccounts } = hre;

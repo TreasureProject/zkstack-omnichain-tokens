@@ -1,7 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 
-const EXISTING_TOKEN = "0xD09419A720FBA5Bf38e10482B2A7EC2F3B7112C9";
+const EXISTING_TOKEN = null;
 
 
 const func: DeployFunction = async function(hre: HardhatRuntimeEnvironment) {
