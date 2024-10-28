@@ -9,7 +9,7 @@ const deployONFT = async function() {
   }
 
   const wallet = await hre.deployer.getWallet();
-  const constructorArguments = ['MyONFT', 'MONFT', currentNetwork.lzEndpoint.address, wallet.address, 'https://media.mulf.wtf/nftmedia/'];
+  const constructorArguments = ['MyONFT', 'MONFT', currentNetwork.lzEndpoint.address, wallet.address, 'https://yourmediaapi.com/metadata'];
   const artifact = await hre.deployer.loadArtifact("MyONFT");
   const contract = await hre.deployer.deploy(artifact, constructorArguments);
 
