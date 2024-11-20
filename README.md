@@ -99,18 +99,6 @@ Below is an example configuration connecting three networks:
       }
     ]
   },
-  "sepolia": {
-    "tokens": [
-      {
-        "name": "MyOFT",
-        "address": "0x789...",
-        "peers": [
-          {"network": "zksepolia", "address": "0x123..."},
-          {"network": "arbsepolia", "address": "0x456..."}
-        ]
-      }
-    ]
-  }
 }
 ```
 
@@ -124,7 +112,7 @@ pnpm hardhat oft:send \
   --contract-name MyOFTAdapter \
   --contract-address 0x1234...5678 \
   --to 0xabcd...ef90 \
-  --amount 100.5 \
+  --amount 100 \
   --dst-chain zksepolia
 ```
 
