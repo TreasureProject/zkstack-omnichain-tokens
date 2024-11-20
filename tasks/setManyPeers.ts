@@ -21,7 +21,7 @@ task('peer:setup', 'Setup peers for tokens across multiple networks')
   .addOptionalParam('tokenName', 'Specific token to setup', undefined, types.string)
   .setAction(async (taskArgs, hre: HardhatRuntimeEnvironment) => {
     // Load JSON config
-    const configPath = resolve(process.cwd(), 'layerzero.config.json');
+    const configPath = resolve(process.cwd(), 'token.config.json');
     const configJson = JSON.parse(readFileSync(configPath, 'utf8')) as LayerZeroConfig;
 
     const { artifacts, ethers } = hre;
