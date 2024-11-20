@@ -1,0 +1,30 @@
+{
+  "zksepolia": {
+    "tokens": [
+      {
+        "name": "MyOFT",
+        "address": "0x123...",
+        "peers": [
+          {
+            "network": "arbsepolia",
+            "address": "0x456..."
+          }
+        ]
+      }
+    ]
+  },
+  "arbsepolia": {
+    "tokens": [
+      {
+        "name": "MyOFT",
+        "address": "0x456...",
+        "peers": [
+          {
+            "network": "zksepolia",
+            "address": "0x123..."
+          }
+        ]
+      }
+    ]
+  }
+}
