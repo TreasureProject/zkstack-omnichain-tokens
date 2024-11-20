@@ -13,8 +13,7 @@ This template is for deploying and interacting with LayerZero V2 OFT/ONFT contra
 
 1. Clone the repository
 2. Install dependencies: `pnpm install`
-3. Set up your [enviroment
-   variables](https://hardhat.org/hardhat-runner/docs/guides/configuration-variables) with your `PRIVATE_KEY`
+3. Set up your [environment variables](https://hardhat.org/hardhat-runner/docs/guides/configuration-variables) with your `PRIVATE_KEY`
 
 ## Deployment
 
@@ -39,19 +38,80 @@ npx hardhat deploy-zksync --network <zksync-network> --tags <tag>
 Available tags: `oft`, `onft`
 
 Note: The zkSync deployment uses the deploy task provided by [hardhat-zksync-deploy](https://docs.zksync.io/build/tooling/hardhat/plugins/hardhat-zksync-deploy)
+
 ## Tasks
 
-### Set Peer
+### Token Configuration for Cross-Network Bridging
 
-Sets the peer address for an OApp contract, this allows the peered contracts to pass messages cross chain. This must be done for _both_ contracts - the token (OFT/ONFT) and its adapter:
+This project utilizes a `token.config.json` file for managing token peer connections across networks, facilitating bidirectional bridging.
+
+#### Configuration Structure
+
+Update `token.config.json` in the project root:
+
+- **network**: Must match network names in `hardhat.config.ts`.
+- **name**: Contract name (e.g., "MyOFT", "MyONFT").
+- **address**: Deployed contract address.
+- **peers**: List of networks and addresses for bridging.
+
+#### Peer Setup
+
+Use these commands to configure peer connections:
 
 ```bash
-pnpm hardhat setPeer \
-  --network zksepolia \
-  --contract-name MyONFT \
-  --contract-address 0x0a2c2378B58F53aefbceF041fEbD605b5Ce5ba66 \
-  --peer-address 0x5C4b498BF781fcc66BbE8B632583a3D56BF6A2c1 \
-  --peer-chain arbsepolia
+# Setup peers across all networks
+npx hardhat peer:setup
+
+# Setup peers for a specific network
+npx hardhat peer:setup --network zksepolia
+
+# Setup peers for a specific token
+npx hardhat peer:setup --token-name MyOFT
+```
+
+#### Example Configuration
+
+Below is an example configuration connecting three networks:
+
+```json
+{
+  "zksepolia": {
+    "tokens": [
+      {
+        "name": "MyOFT",
+        "address": "0x123...",
+        "peers": [
+          {"network": "arbsepolia", "address": "0x456..."},
+          {"network": "sepolia", "address": "0x789..."}
+        ]
+      }
+    ]
+  },
+  "arbsepolia": {
+    "tokens": [
+      {
+        "name": "MyOFT",
+        "address": "0x456...",
+        "peers": [
+          {"network": "zksepolia", "address": "0x123..."},
+          {"network": "sepolia", "address": "0x789..."}
+        ]
+      }
+    ]
+  },
+  "sepolia": {
+    "tokens": [
+      {
+        "name": "MyOFT",
+        "address": "0x789...",
+        "peers": [
+          {"network": "zksepolia", "address": "0x123..."},
+          {"network": "arbsepolia", "address": "0x456..."}
+        ]
+      }
+    ]
+  }
+}
 ```
 
 ### Send OFT
@@ -81,6 +141,7 @@ pnpm hardhat onft:send \
   --tokenid 42 \
   --dstchain zksepolia
 ```
+
 ## Adapters
 
 For adapter contracts (`MyOFTAdapter` and `MyONFTAdapter`), an existing token address must be specified during deployment. This allows you to add omnichain functionality to pre-existing tokens.
@@ -115,6 +176,4 @@ LayerZero V2 endpoint information for various networks can be found in the [Laye
 - Always ensure you're using the correct network and endpoint addresses when interacting with contracts across chains.
 - When adding new networks, make sure to include the correct LayerZero endpoint configuration.
 
-For more detailed information on LayerZero V2, refer to the [official
-documentation](https://docs.layerzero.network/v2/developers/evm/overview).
-
+For more detailed information on LayerZero V2, refer to the [official documentation](https://docs.layerzero.network/v2/developers/evm/overview).
