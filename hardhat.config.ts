@@ -39,7 +39,7 @@ const config: HardhatUserConfig = {
       }
     },
     arbsepolia: {
-      url: "https://rpc.ankr.com/arbitrum_sepolia/4d958b0214f14cdd1a9b17371b86a01fdc1bec611879fe33b6f344fc8d5a5225",
+      url: "https://sepolia-rollup.arbitrum.io/rpc",
       ethNetwork: 'sepolia',
       accounts: accounts,
       zksync: false,
