@@ -16,7 +16,7 @@
   "arbsepolia": {
     "tokens": [
       {
-        "name": "MyOFT",
+        "name": "MyOFTAdapter",
         "address": "0x456...",
         "peers": [
           {
