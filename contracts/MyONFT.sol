@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.0;
 
-import "@layerzerolabs/onft-evm/contracts/onft721/ONFT721.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
+import {ONFT721} from "@layerzerolabs/onft-evm/contracts/onft721/ONFT721.sol";
+import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
-contract MyONFT is ONFT721 {
+contract MyONFT is Ownable, ONFT721 {
     using Strings for uint256;
-
-    error NotOwnerOrEndpoint();
 
     uint256 private _nextTokenId = 1;
     uint256 private _totalSupply;
@@ -26,7 +25,7 @@ contract MyONFT is ONFT721 {
         return _totalSupply;
     }
 
-    function mint(address to) public {
+    function mint(address to) public onlyOwner {
         uint256 tokenId = _nextTokenId++;
         _totalSupply++;
         _safeMint(to, tokenId);
